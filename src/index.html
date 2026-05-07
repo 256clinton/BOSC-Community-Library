@@ -1,11 +1,57 @@
-<input type="text" id="searchInput" placeholder="Search resources...">
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>BOSC Community Library</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>BOSC Community Library</h1>
+        <nav>
+            <ul>
+                <li><a href="index.html">Home</a></li>
+                <li><a href="docs/resources.html">Resources</a></li>
+                <li><a href="#about">About</a></li>
+            </ul>
+        </nav>
+    </header>
 
-<ul id="resourceList">
-    <li>Mathematics Notes</li>
-    <li>Physics Textbook</li>
-    <li>Chemistry Revision Guide</li>
-    <li>Computer Science Handbook</li>
-    <li>Biology Past Papers</li>
-</ul>
+    <main>
+        <section class="hero">
+            <h2>Welcome to the Community Library</h2>
+            <p>Your open source resource hub for public-sector digital transformation.</p>
+        </section>
 
-<script src="search.js"></script>
+        <section class="stats">
+            <div class="stat-card">
+                <h3>Total Resources</h3>
+                <!-- BUG: This counter shows 8 but should show 6 -->
+                <p class="counter" id="resource-count">0</p>
+            </div>
+            <div class="stat-card">
+                <h3>Categories</h3>
+                <p class="counter" id="category-count">0</p>
+            </div>
+        </section>
+
+        <section class="resources" id="resource-list">
+            <h3>Available Resources</h3>
+            <div id="resource-container">
+                <!-- Resources loaded dynamically -->
+            </div>
+        </section>
+    </main>
+
+    <footer>
+        <p>&copy; 2026 BOSC Community Library. Licensed under Apache 2.0.</p>
+    </footer>
+
+    <script src="resources.js"></script>
+    <script>
+        // Initialize the display
+        displayResourceCount();
+    </script>
+</body>
+</html>
