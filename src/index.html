@@ -5,15 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>BOSC Community Library</title>
     <link rel="stylesheet" href="styles.css">
+    <!-- NEW: Prevent flash of wrong theme -->
+    <script>
+      // Apply saved theme immediately to prevent flash
+      (function() {
+        const savedTheme = localStorage.getItem('bosc-theme-preference');
+        if (savedTheme === 'dark') {
+          document.documentElement.setAttribute('data-theme', 'dark');
+        }
+      })();
+    </script>
 </head>
 <body>
     <header>
-        <h1>BOSC Community Library</h1>
+        <h1>📚 BOSC Community Library</h1>
         <nav>
             <ul>
                 <li><a href="index.html">Home</a></li>
                 <li><a href="docs/resources.html">Resources</a></li>
                 <li><a href="#about">About</a></li>
+                <!-- Theme toggle will be inserted here by theme.js -->
             </ul>
         </nav>
     </header>
@@ -26,12 +37,11 @@
 
         <section class="stats">
             <div class="stat-card">
-                <h3>Total Resources</h3>
-                <!-- BUG: This counter shows 8 but should show 6 -->
+                <h3>📖 Total Resources</h3>
                 <p class="counter" id="resource-count">0</p>
             </div>
             <div class="stat-card">
-                <h3>Categories</h3>
+                <h3>📂 Categories</h3>
                 <p class="counter" id="category-count">0</p>
             </div>
         </section>
@@ -46,12 +56,37 @@
 
     <footer>
         <p>&copy; 2026 BOSC Community Library. Licensed under Apache 2.0.</p>
+        <p>Built for the community, by the community.</p>
     </footer>
 
     <script src="resources.js"></script>
+    <script src="theme.js"></script>
     <script>
-        // Initialize the display
+        // Initialize resource display
         displayResourceCount();
+        displayCategoryCount();
+        
+        // NEW: Render resource cards with category badges
+        function renderResources() {
+            const container = document.getElementById('resource-container');
+            if (!container) return;
+            
+            container.innerHTML = '';
+            const validResources = resources.filter(r => r.title.trim() !== '');
+            
+            validResources.forEach(resource => {
+                const card = document.createElement('div');
+                card.className = 'resource-card';
+                card.innerHTML = `
+                    <h4>${resource.title}</h4>
+                    <p class="author">By ${resource.author}</p>
+                    <span class="category-badge">${resource.category}</span>
+                `;
+                container.appendChild(card);
+            });
+        }
+        
+        renderResources();
     </script>
 </body>
 </html>
